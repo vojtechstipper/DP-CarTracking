@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:CarTracking.MobileApp.ViewModels"
+             xmlns:helpers="clr-namespace:CarTracking.MobileApp.Helpers"
+             x:Class="CarTracking.MobileApp.Pages.MonitorModeHomePage"
+             x:DataType="viewModels:LogViewModel">
+    <ContentPage.Content>
+        <StackLayout Margin="0,10,0,0">
+            <Grid  ColumnDefinitions="Auto,*,Auto">
+                
+            <Button Text="Menu"
+                    HorizontalOptions="Start"
+                    Margin="10,0,0,0"
+                    Clicked="OnMenuButtonClicked"
+                    Grid.Column="1">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="MaterialIcons"
+                        Color="Black"
+                        Glyph="{x:Static helpers:MaterialDesignIconFonts.List}"
+                        Size="25" />
+                </Button.ImageSource>
+            </Button>
+                <Label Grid.Column="1" />
+                <Button Text="Test Notifications"
+                        Margin="0,0,10,0"
+                        Clicked="OnSendTestNotificationsClicked"
+                        Grid.Column="2"/>
+            </Grid>
+            <Label x:Name="VehicleName" FontSize="28" HorizontalTextAlignment="Center">
+                Monitor page
+            </Label>
+            <StackLayout Margin="20">
+                <BoxView
+                    HeightRequest="1" BackgroundColor="LightGray" Margin="0,5,0,10" />
+                <Label HorizontalOptions="Center" Height="48" Text="Number of records to keep on display: "></Label>
+
+                <Label Text="{Binding RecordsKeepCount, StringFormat='{0} records'}"
+                       FontSize="16"
+                       HorizontalOptions="Center" />
+                <Slider ValueChanged="Slider_OnValueChanged"
+                        Minimum="10"
+                        Maximum="100"
+                        Value="{Binding RecordsKeepCount}" />
+                <BoxView
+                    HeightRequest="1" BackgroundColor="LightGray" Margin="0,5,0,0" />
+            </StackLayout>
+
+
+            <ListView ItemsSource="{Binding LogsString}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="5">
+                            <Label Text="{Binding }"
+                                   FontSize="18"
+                                   FontAttributes="Bold" />
+                        </StackLayout>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

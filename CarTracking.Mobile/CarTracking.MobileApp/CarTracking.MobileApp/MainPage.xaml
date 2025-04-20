@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarTracking.MobileApp.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Button
+                x:Name="CounterBtn"
+                Text="Choose mode" 
+                Clicked="OnChooseModeClicked"
+                HorizontalOptions="Fill" />
+            
+            <Button
+                x:Name="PreferencesBtn"
+                Text="Remove all preferences" 
+                Clicked="OnRemoveAllPreferencesClicked"
+                HorizontalOptions="Fill" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

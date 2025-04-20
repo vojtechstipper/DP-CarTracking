@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarTracking.MobileApp.Pages.CreateVehiclePage">
+    <ContentPage.Content>
+        <StackLayout Padding="20" Spacing="10">
+            <Label Text="Enter Vehicle Name:" />
+            <Entry Placeholder="Vehicle Name"
+                   Text="{Binding VehicleName}"
+                   x:Name="VehicleName"
+                   FontSize="18"
+                   HeightRequest="48" />
+
+            <Button Text="Add Vehicle"
+                    Clicked="AddVehicleButtonClicked"
+                    FontSize="18"
+                    HeightRequest="48" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
