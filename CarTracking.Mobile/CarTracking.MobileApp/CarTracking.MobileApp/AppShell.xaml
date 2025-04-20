@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Shell
+    x:Class="CarTracking.MobileApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:CarTracking.MobileApp.Pages"
+    Title="CarTracking.MobileApp"
+    NavBarIsVisible="True">
+
+    <ShellContent
+        Title="Home Monitor"
+        ContentTemplate="{DataTemplate pages:MonitorModeHomePage}"
+        FlyoutItemIsVisible="False"
+        Shell.NavBarIsVisible="False"
+        Route="Monitor" />
+
+    <ShellContent
+        Title="Home Admin"
+        ContentTemplate="{DataTemplate pages:AdminModeHomePage}"
+        FlyoutItemIsVisible="False"
+        Route="Admin"
+        Shell.NavBarIsVisible="False" />
+
+    <ShellContent
+        Title="Mode Select"
+        ContentTemplate="{DataTemplate pages:ModeSelectPage}"
+        FlyoutItemIsVisible="False"
+        Route="ModeSelectPage"
+        Shell.NavBarIsVisible="False" />
+
+    <ShellContent
+        Title="User Login"
+        ContentTemplate="{DataTemplate pages:UserLoginPage}"
+        FlyoutItemIsVisible="False"
+        Route="UserLogin"
+        Shell.NavBarIsVisible="False" />
+
+</Shell>

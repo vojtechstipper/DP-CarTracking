@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarTracking.MobileApp.Pages.VehicleTripsPage"
+             xmlns:helpers="clr-namespace:CarTracking.MobileApp.Helpers"
+             Title="Vehicle Trips">
+    <ContentPage.Content>
+        <Grid>
+            <ScrollView>
+                <StackLayout Padding="10">
+            <Button Text="Click to analyse new trips" 
+                    FontSize="18"
+                    HeightRequest="48"
+                    Clicked="OnGenerateTripsClicked">
+            </Button>
+                    <CollectionView ItemsSource="{Binding Trips}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="15" ColumnDefinitions="*,*,*"
+                                      RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
+
+                                    <Grid ColumnDefinitions="Auto, * ,Auto"
+                                          Grid.Row="0"
+                                          Grid.Column="0"
+                                          Grid.ColumnSpan="3">
+                                        <Label Text="Start time:"
+                                               Grid.Column="0"
+                                               FontSize="18" />
+                                        <Label Grid.Column="1" />
+                                        <Label
+                                            Text="{Binding TripStart, StringFormat='{0:G}'}"
+                                            Grid.Row="0"
+                                            Grid.Column="2"
+                                            FontSize="18" />
+                                    </Grid>
+
+                                    <Grid ColumnDefinitions="Auto, * ,Auto"
+                                          Grid.Row="1" Grid.Column="0"
+                                          Grid.ColumnSpan="3">
+                                        <Label Text="From: " Grid.Column="0" />
+                                        <Label Grid.Column="1" />
+                                        <Label Text="{Binding AddressFrom}" Grid.Column="2" />
+                                    </Grid>
+                                    <Grid ColumnDefinitions="Auto, * ,Auto"
+                                          Grid.Row="2" Grid.Column="0"
+                                          Grid.ColumnSpan="3">
+                                        <Label Text="To: " Grid.Column="0" />
+                                        <Label Grid.Column="1" />
+                                        <Label Text="{Binding AddressTo}" Grid.Column="2" />
+                                    </Grid>
+                                    <Grid ColumnDefinitions="Auto, * ,Auto"
+                                          Grid.Row="3" Grid.Column="0"
+                                          Grid.ColumnSpan="3">
+                                        <Label Text="Trip lenght: " Grid.Column="0" />
+                                        <Label Grid.Column="1" />
+                                        <Label  Text="{Binding TripLenght, StringFormat='{}{0:hh\\:mm}'}" Grid.Column="2" />
+                                    </Grid>
+                                    <!-- Show on map button -->
+                                    <Grid ColumnDefinitions="5*, Auto, 1*"
+                                          Grid.Row="4"
+                                          Grid.Column="0"
+                                          Grid.ColumnSpan="3">
+
+                                        <Button Text="Show on map"
+                                                Grid.Column="0"
+                                                Margin="0,10,5,0"
+                                                IsEnabled="True"
+                                                Clicked="OnShowOnMapClicked"
+                                                CommandParameter="{Binding}"
+                                                FontSize="18"
+                                                HeightRequest="48" />
+
+                                        <Button
+                                            Grid.Column="2"
+                                            Margin="5,10,0,0"
+                                            BackgroundColor="DarkRed"
+                                            IsEnabled="True"
+                                            FontSize="18"
+                                            HeightRequest="48"
+                                            Clicked="OnDeleteClicked"
+                                            CommandParameter="{Binding}">
+                                            <Button.ImageSource>
+                                                <FontImageSource
+                                                    FontFamily="MaterialIcons"
+                                                    Color="Black"
+                                                    Glyph="{x:Static helpers:MaterialDesignIconFonts.Delete}"
+                                                    Size="50" />
+                                            </Button.ImageSource>
+                                        </Button>
+
+                                    </Grid>
+                                    <BoxView
+                                        Grid.Row="5"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="3"
+                                        HeightRequest="1" BackgroundColor="LightGray" Margin="0,5,0,0" />
+
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </ScrollView>
+            <Grid IsVisible="{Binding IsBusy}">
+                <!-- Dimmed Background -->
+                <BoxView Color="White" Opacity="0.3" />
+
+                <!-- Activity Indicator -->
+                <ActivityIndicator
+                    IsRunning="{Binding IsBusy}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    WidthRequest="50"
+                    HeightRequest="50" />
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

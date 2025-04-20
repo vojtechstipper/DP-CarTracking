@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="http://schemas.microsoft.com/dotnet/2021/maui/maps"
+             xmlns:converters="clr-namespace:CarTracking.MobileApp.Converters"
+             x:Class="CarTracking.MobileApp.Pages.VehicleStatusDetailPage"
+             Title="Vehicle Detail">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToChargingTextConverter x:Key="BoolToChargingTextConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <AbsoluteLayout Margin="0,30,0,0">
+                <maps:Map x:Name="map" HeightRequest="200" Margin="10" AbsoluteLayout.LayoutBounds="0, 0, 1, 0.2"
+                          AbsoluteLayout.LayoutFlags="All" />
+                <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}"
+                             AbsoluteLayout.LayoutBounds="0, 1.2, 1, 0.8"
+                             AbsoluteLayout.LayoutFlags="All">
+                    <ScrollView>
+
+                        <StackLayout Padding="15" Spacing="10">
+
+                            <!-- Name of vehicle -->
+                            <Label Text="{Binding LastStatus.VehicleName}"
+                                   FontSize="Large"
+                                   FontAttributes="Bold" />
+
+                            <!-- Last known address -->
+                            <Label Text="{Binding LocationAddress}"
+                                   FontSize="Medium" />
+
+                            <!-- Battery percentage -->
+                            <HorizontalStackLayout>
+
+                                <Label
+                                    Text="{Binding LastStatus.BatteryInfo.ChargeLevelInPercentage, StringFormat='Battery: {0} %'}"
+                                    FontSize="Medium" />
+                                <Label
+                                    Text="{Binding LastStatus.BatteryInfo.IsCharging, Converter={StaticResource BoolToChargingTextConverter}}"
+                                    FontSize="Medium" />
+                            </HorizontalStackLayout>
+
+                            <!-- Time of last known location -->
+                            <HorizontalStackLayout>
+                                <Label Text="Last status time: "
+                                       FontSize="Medium" />
+                                <Label Text="{Binding LastStatus.Sent}"
+                                       FontSize="Medium" />
+                            </HorizontalStackLayout>
+                            <BoxView HeightRequest="1" BackgroundColor="LightGray" Margin="0,10"></BoxView>
+                            <HorizontalStackLayout>
+                                <Label
+                                    Text="Virtual Garage"
+                                    FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    HorizontalTextAlignment="End" />
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Spacing="10"
+                                                   IsVisible="{Binding IsVirtualGarageInactive}">
+                                <Label Text="Active till: " FontSize="Medium" VerticalTextAlignment="Center" />
+                                <DatePicker Date="{Binding VirtualGarageEndDate}"
+                                            IsEnabled="{Binding LastStatus.IsVirtualGarageActiveNeg}"
+                                            HorizontalOptions="Center"
+                                            MinimumDate="{Binding VirtualGarageMinDate}" />
+                                <TimePicker Time="{Binding VirtualGarageEndTime}"
+                                            IsEnabled="{Binding LastStatus.IsVirtualGarageActiveNeg}"
+                                            VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                            <Button
+                                Text="Start Virtual Garage"
+                                IsVisible="{Binding LastStatus.IsVirtualGarageActiveNeg}"
+                                Clicked="OnActivateVirtualGarageClicked"
+                                HorizontalOptions="Center"
+                                BackgroundColor="SeaGreen" />
+
+                            <Button
+                                Text="Stop Virtual Garage"
+                                IsVisible="{Binding LastStatus.IsVirtualGarageActive}"
+                                Clicked="OnDeactivateVirtualGarageClicked"
+                                HorizontalOptions="Center"
+                                BackgroundColor="DarkRed" />
+
+                            <BoxView HeightRequest="1" BackgroundColor="LightGray" Margin="0,10"></BoxView>
+                        </StackLayout>
+                    </ScrollView>
+                </RefreshView>
+            </AbsoluteLayout>
+            <Grid IsVisible="{Binding IsBusy}">
+                <!-- Dimmed Background -->
+                <BoxView Color="White" Opacity="0.3" />
+
+                <!-- Activity Indicator -->
+                <ActivityIndicator
+                    IsRunning="{Binding IsBusy}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    WidthRequest="50"
+                    HeightRequest="50" />
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

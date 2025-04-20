@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:CarTracking.MobileApp.Converters"
+             x:Class="CarTracking.MobileApp.Pages.VehicleSelectPage"
+             Title="Select Vehicle">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToAssignedTextConverter x:Key="BoolToAssignedTextConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout Padding="10">
+
+        <Label Text="No vehicle. Please add vehicle as admin user."
+               TextColor="Gray"
+               FontSize="16"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               IsVisible="{Binding IsVehicleListEmpty}" />
+
+        <ListView x:Name="VehiclesListView"
+                  ItemSelected="OnVehicleSelected"
+                  ItemsSource="{Binding Vehicles}"
+                  HasUnevenRows="True"
+                  IsVisible="{Binding IsVehicleListNotEmpty}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="10">
+                            <Label Text="{Binding Name}"
+                                   FontSize="18"
+                                   HeightRequest="48"
+                                   TextColor="Black" />
+                            <Label Text="{Binding IsAssigned, Converter={StaticResource BoolToAssignedTextConverter}}"
+                                   FontSize="16"
+                                   TextColor="Gray" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

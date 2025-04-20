@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="http://schemas.microsoft.com/dotnet/2021/maui/maps"
+             x:Class="CarTracking.MobileApp.Pages.LocationSelectorPage"
+             Title="Named Location">
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout VerticalOptions="End"
+                         Padding="10"
+                         Opacity="0.8">
+                <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto">
+                    <Entry x:Name="LocationName"
+                           Placeholder="My Location"
+                           FontSize="18"
+                           HeightRequest="48"
+                           Grid.Column="1" />
+                    <Button Text="Add"
+                            x:Name="AddLocationButton"
+                            Clicked="OnAddLocationButtonClicked"
+                            HeightRequest="48"
+                            FontSize="18"
+                            Grid.Column="2" />
+                </Grid>
+                <BoxView
+                    HeightRequest="1" BackgroundColor="LightGray" Margin="0,5,0,0" />
+                <Label Text="Set Radius (meters)"
+                       FontSize="Medium"
+                       Margin="0,10,0,0"
+                       HorizontalOptions="Center" />
+                <Slider x:Name="RadiusSlider"
+                        Minimum="100"
+                        Maximum="1000"
+                        Value="200"
+                        ValueChanged="OnRadiusChanged" />
+                <Label x:Name="RadiusLabel"
+                       FontSize="Small"
+                       HorizontalOptions="Center"
+                       Text="200m" />
+                <BoxView
+                    HeightRequest="1" BackgroundColor="LightGray" Margin="0,5,0,0" />
+                <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto">
+
+                    <Label Text="Use this location as Virtual Fence"
+                           FontSize="Medium"
+                           Margin="0,10,0,0"
+                           HorizontalOptions="Center" />
+                    <Switch
+                        x:Name="UseAsVirtualFenceSwitch"
+                        Toggled="OnUseAsVirtualFenceSwitchToggled"
+                        HeightRequest="48"
+                        Grid.Column="2" />
+                </Grid>
+                <Grid x:Name="GridTime" ColumnDefinitions="Auto,Auto,*,Auto,Auto" RowDefinitions="Auto">
+
+                    <Label Text="From" Grid.Column="0" VerticalTextAlignment="Center" />
+                    <TimePicker x:Name="FromTime"
+                                Time="{Binding FromDate}"
+                                Format="T"
+                                Grid.Column="1" />
+                    <Label Text="To" Grid.Column="3" VerticalTextAlignment="Center" />
+                    <TimePicker x:Name="ToTime"
+                                Time="{Binding ToDate}"
+                                Format="T"
+                                Grid.Column="4" />
+
+                </Grid>
+                <BoxView
+                    HeightRequest="1" BackgroundColor="LightGray" Margin="0,5,0,0" />
+                <Button Text="Load current location"
+                        Margin="10"
+                        x:Name="LoadLocation"
+                        HeightRequest="48"
+                        FontSize="18"
+                        Clicked="OnLoadLocationButtonClicked" />
+                <!-- Google Map -->
+                <maps:Map x:Name="GoogleMap"
+                          MapClicked="OnMapClicked"
+                          Margin="10" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarTracking.MobileApp.Pages.UserLoginPage">
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout Padding="30" Spacing="15">
+                <Label Text="Login" FontSize="36" HorizontalOptions="Center" />
+                <Entry x:Name="UsernameEntry"
+                       Placeholder="Username"
+                       Keyboard="Email"
+                       FontSize="18"
+                       HeightRequest="48" />
+                <VerticalStackLayout Spacing="10">
+                    <!-- Password Entry -->
+                    <Entry x:Name="PasswordEntry"
+                           Placeholder="Password"
+                           IsPassword="{Binding IsPassword}"
+                           FontSize="18"
+                           HeightRequest="48" />
+
+                    <!-- Show Password Checkbox -->
+                    <HorizontalStackLayout>
+                        <CheckBox IsChecked="{Binding IsPassword, Mode=TwoWay}"
+                                  Scale="1.2" />
+                        <Label Text="Hide Password" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                    
+                </VerticalStackLayout>
+                <Button Text="Login" Clicked="OnLoginButtonClicked" FontSize="18" HeightRequest="48" />
+                <Button Text="Create Account" Clicked="OnCreateAccountButtonClicked" FontSize="18" HeightRequest="48" />
+                <Button Text="Reset Password" Clicked="OnResetPasswordClicked" FontSize="18" HeightRequest="48" />
+                <Label x:Name="ErrorMessage" TextColor="Red" IsVisible="False" />
+            </StackLayout>
+            <Grid IsVisible="{Binding IsBusy}">
+                <!-- Dimmed Background -->
+                <BoxView Color="White" Opacity="0.3" />
+
+                <!-- Activity Indicator -->
+                <ActivityIndicator
+                    IsRunning="{Binding IsBusy}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    WidthRequest="50"
+                    HeightRequest="50" />
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

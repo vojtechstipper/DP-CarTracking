@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarTracking.MobileApp.Pages.ModeSelectPage"
+             BackgroundColor="#FAFAFF">
+    <ContentPage.Content>
+        <VerticalStackLayout Padding="40" Spacing="35">
+            <Button
+                Text="Monitor Mode"
+                Clicked="OnMonitorModeClicked"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Center"
+                HeightRequest="280"
+                FontSize="24"
+                BackgroundColor="#EEF0F2"
+                TextColor="#1C1C1C"
+                FontAttributes="Bold"
+                FontFamily="sans-serif"
+                CornerRadius="10" />
+
+            <Button
+                Text="Admin Mode"
+                Clicked="OnAdminModeClicked"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Center"
+                HeightRequest="280"
+                FontSize="24"
+                BackgroundColor="#EEF0F2"
+                TextColor="#1C1C1C"
+                FontFamily="sans-serif"
+                FontAttributes="Bold"
+                CornerRadius="10"/>
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>

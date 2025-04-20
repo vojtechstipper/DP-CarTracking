@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarTracking.MobileApp.Pages.AccountAssigningPage">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Center" Padding="20">
+            <Grid Padding="15" ColumnDefinitions="*,*,*,*,*,*"
+                  RowDefinitions="Auto,Auto,Auto">
+
+                <!-- Entry for Account ID -->
+                <Entry x:Name="AccountEntry" Placeholder="Enter code for joining"
+                       Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" />
+    
+                <!-- Button for Join -->
+                <Button Padding="15" Text="Join"
+                        Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2"
+                        Clicked="OnJoinAccountClicked"/>
+    
+                <!-- Label for instruction -->
+                <Label Padding="0,50,0,50" Text="Or create new" HorizontalOptions="Center"
+                       Grid.Row="1" Grid.ColumnSpan="6"/>
+    
+                <!-- Button for Create New Account -->
+                <Button Text="Create new Account" Clicked="OnCreateNewAccountButtonClicked"
+                        Grid.Row="2" Grid.ColumnSpan="6" />
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

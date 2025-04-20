@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:CarTracking.MobileApp.Helpers"
+             x:Class="CarTracking.MobileApp.Pages.VehicleSettingsPage"
+             Title="Vehicle Settings">
+    <ContentPage.Content>
+        <Grid Padding="20,10,20,20">
+            <!-- Define three rows: title, content, and button -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" /> <!-- Header or Title -->
+                <RowDefinition Height="*" /> <!-- Content -->
+                <RowDefinition Height="Auto" /> <!-- Button -->
+            </Grid.RowDefinitions>
+
+            <!-- Main content section -->
+            <StackLayout Grid.Row="1" Spacing="15">
+                <!-- Name entry -->
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Label Text="Name:"
+                           FontSize="18"
+                           VerticalTextAlignment="Center" />
+                    <Entry Text="{Binding VehicleConfig.Name}"
+                           Placeholder="Enter vehicle name"
+                           FontSize="18" 
+                           HeightRequest="48"/>
+                </StackLayout>
+                <BoxView
+                    HeightRequest="1" BackgroundColor="LightGray" Margin="0,5,0,0" />
+                <!-- Low battery threshold slider -->
+                <StackLayout>
+                    <Label Text="Battery Notification Threshold"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           Margin="0,0,0,5" />
+                    <Label Text="{Binding VehicleConfig.LowBatteryThreshold, StringFormat='{0}%'}"
+                           FontSize="16"
+                           HorizontalOptions="Center" />
+                    <Slider ValueChanged="Slider_OnValueChanged"
+                            Minimum="0"
+                            Maximum="100"
+                            Value="{Binding VehicleConfig.LowBatteryThreshold}" />
+                </StackLayout>
+                <BoxView
+                    HeightRequest="1" BackgroundColor="LightGray" Margin="0,5,0,0" />
+                <!-- Virtual Garage Radius slider -->
+                <StackLayout>
+                    <Label Text="Virtual Garage Radius"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           Margin="0,0,0,5" />
+                    <Label Text="{Binding VehicleConfig.VirtualGarageRadius, StringFormat='{0} m'}"
+                           FontSize="16"
+                           HorizontalOptions="Center" />
+                    <Slider ValueChanged="VirtualGarageRadiusSlider_OnValueChanged"
+                            Minimum="0"
+                            Maximum="1000"
+                            Value="{Binding VehicleConfig.VirtualGarageRadius}" />
+                </StackLayout>
+                <BoxView
+                    HeightRequest="1" BackgroundColor="LightGray" Margin="0,5,0,0" />
+                <!-- Status history lenght slider -->
+                <StackLayout>
+                    <Label Text="Keep Status History for (days)"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           Margin="0,0,0,5" />
+                    <Label Text="{Binding VehicleConfig.HistoryInDays, StringFormat='{0} days'}"
+                           FontSize="16"
+                           HorizontalOptions="Center" />
+                    <Slider ValueChanged="HistoryInDaysSlider_OnValueChanged"
+                            Minimum="0"
+                            Maximum="60"
+                            Value="{Binding VehicleConfig.HistoryInDays}" />
+                </StackLayout>
+                <BoxView
+                    HeightRequest="1" BackgroundColor="LightGray" Margin="0,5,0,0" />
+
+                <!-- List of named locations -->
+                <StackLayout>
+                    <Label Text="Named Locations"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           Margin="0,0,0,5" />
+                    <CollectionView ItemsSource="{Binding VehicleLocations}" MaximumHeightRequest="200"
+                                    Margin="0,0,0,5">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Padding="0"
+                                       CornerRadius="8"
+                                       HasShadow="True"
+                                       BorderColor="LightGray"
+                                       Margin="2">
+                                    <Grid Padding="5"
+                                          ColumnDefinitions="*,*,*"
+                                          RowDefinitions="Auto">
+
+                                        <Grid ColumnDefinitions="Auto, * ,Auto,Auto"
+                                              Grid.Column="0"
+                                              Grid.ColumnSpan="3">
+                                            <Label
+                                                Text="{Binding Name}"
+                                                Grid.Column="0"
+                                                VerticalTextAlignment="Center"
+                                                FontSize="18" />
+                                            <Label Grid.Column="1" />
+                                            <Button
+                                                Grid.Column="2"
+                                                Margin="5,0,0,0"
+                                                BackgroundColor="LightGray"
+                                                IsEnabled="True"
+                                                FontSize="18"
+                                                HeightRequest="48"
+                                                Clicked="OnLocationEditClickd"
+                                                CommandParameter="{Binding}">
+                                                <Button.ImageSource>
+                                                    <FontImageSource
+                                                        FontFamily="MaterialIcons"
+                                                        Color="Black"
+                                                        Glyph="{x:Static helpers:MaterialDesignIconFonts.Edit}"
+                                                        Size="50" />
+                                                </Button.ImageSource>
+                                            </Button>
+                                            <Button
+                                                Grid.Column="3"
+                                                Margin="5,0,0,0"
+                                                BackgroundColor="Red"
+                                                IsEnabled="True"
+                                                FontSize="18"
+                                                HeightRequest="48"
+                                                Clicked="OnDeleteClicked"
+                                                CommandParameter="{Binding}">
+                                                <Button.ImageSource>
+                                                    <FontImageSource
+                                                        FontFamily="MaterialIcons"
+                                                        Color="Black"
+                                                        Glyph="{x:Static helpers:MaterialDesignIconFonts.Delete}"
+                                                        Size="50" />
+                                                </Button.ImageSource>
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <Button Text=" + Add Location"
+                            Clicked="OnMapLocationClicked"
+                            BackgroundColor="LightGreen" />
+                </StackLayout>
+            </StackLayout>
+
+            <!-- Save button section -->
+            <Button Text="Save Settings"
+                    Grid.Row="2"
+                    BackgroundColor="#007ACC"
+                    TextColor="White"
+                    CornerRadius="10"
+                    HeightRequest="50"
+                    FontSize="18"
+                    Margin="0,20,0,0"
+                    HorizontalOptions="Fill"
+                    Clicked="OnSaveClicked" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
